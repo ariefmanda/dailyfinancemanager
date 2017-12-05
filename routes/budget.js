@@ -21,29 +21,6 @@ router.get('/add', function(req, res, next) {
 });
 
 router.post('/add', function(req, res, next) {
-<<<<<<< HEAD
-  if (req.body.yesno == 'yes') {
-    let wisht = {
-      name: req.body.name,
-      fullfilled: false
-    };
-    models.Wish.create(wisht)
-      .then(() => {
-        res.redirect('/wisht');
-      })
-      .catch(next);
-  } else {
-    res.redirect('/transaction');
-  }
-});
-
-router.get('/:id/edit', function(req, res, next) {
-  models.Wish.findById(req.params.id)
-    .then(wisht => {
-      res.render('wishtForm', {
-        pageTitle: 'Wisht Edit',
-        wisht: wish
-=======
   let newBudget = {
     year: req.body.year,
     month: req.body.month,
@@ -62,7 +39,6 @@ router.get('/:id/edit', function(req, res, next) {
       res.render('budgetForm', {
         pageTitle: 'Budget Edit',
         budget: Budgets
->>>>>>> 2a42e1bf8497c8e1a7e3df5dc85da1be5e32dcfb
       });
     })
     .catch(next);
@@ -84,11 +60,7 @@ router.post('/:id/edit', function(req, res, next) {
 });
 
 router.get('/:id/delete', function(req, res, next) {
-<<<<<<< HEAD
-  models.Wish.destroy({
-=======
   models.Budget.destroy({
->>>>>>> 2a42e1bf8497c8e1a7e3df5dc85da1be5e32dcfb
     where: {
       id: req.params.id
     }
