@@ -13,7 +13,7 @@ router.get('/',function(req,res){
             name:'becak',
             fullfilled:true
         }],
-        pageTitle:'ADD WHISTLIST'
+        pageTitle:'WHISTLIST'
     })
 })
 router.post('/',function(req,res) {
