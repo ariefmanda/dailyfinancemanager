@@ -73,7 +73,11 @@ router.get('/:id/delete', function(req, res) {
     }
   })
     .then(() => {
+<<<<<<< HEAD:routes/wish.js
       req.redirect('/wish');
+=======
+      res.redirect('/wisht');
+>>>>>>> 2a42e1bf8497c8e1a7e3df5dc85da1be5e32dcfb:routes/wisht.js
     })
     .catch(next);
 });

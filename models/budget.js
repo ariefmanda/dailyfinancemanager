@@ -6,8 +6,8 @@ module.exports = (sequelize, DataTypes) => {
     year: DataTypes.INTEGER,
     amount: DataTypes.INTEGER,
   });
-  Budget.prototype.nameMonth=function() {
-    return MonthHelper.ConvertMonth(this.month)
+  Budget.prototype.nameMonth=function(month) {
+    return MonthHelper.ConvertMonth(month)
   }
   return Budget;
 };

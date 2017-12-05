@@ -14,7 +14,7 @@
     <tbody>
         <% for(let budget of budgets) {%>
           <tr>
-            <td><%= budget.nameMonth()+' '+budget.year %></td>
+            <td><%= budget.nameMonth(budget.month)+' '+budget.year %></td>
             <td>Rp <%= budget.amount%></td>
             <td>
               <a class "ui button mini" href="/budget/<%= budget.id %>/edit">Edit</a>

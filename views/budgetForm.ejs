@@ -7,12 +7,20 @@
   <%- include('./partials/header'); %>
   <form action="" method="post" class="ui form">
       <label>Year:</label>
-
+      <select name="year" class="ui dropdown">
+      <% for(let i=2017; i <2020; i++) {%>
+      <option value= "<%= i %>" ><%=i%></option>  
+      <% } %>
+      </select>
       <label>Month:</label>
+      <select name="month" class="ui dropdown">
+      <% for(let [index,month] of ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'].entries()) { %>
+      <option value="<%= index+1 %>" > <%= month %> </option>
+      <%}%>
+      </select>
+      <label>Amount(Rp):</label>
+      <input type="number" name="amount" value="<%= (budget)?budget.amount:''%>" placeholder="Amount">
 
-      <label>Budget:</label>
-
-      <input type="date" name="name" value="<%= budget.year || '' %>" placeholder="Name">
       <input class="ui primary button" type="submit" value="Save">
     </form>
 </body>
