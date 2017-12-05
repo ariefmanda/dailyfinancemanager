@@ -7,8 +7,11 @@ router.get('/login', (req, res, next) => {
     pageTitle: 'Login'
   })
 })
-
 router.post('/login', (req, res, next) => {
+  models.User.find({where:{
+    email:req.body.email,
+    hash: req.body.password,
+  }})
 })
 router.get('/signup', (req, res, next) => {
   res.render('authSignup', {
@@ -17,8 +20,14 @@ router.get('/signup', (req, res, next) => {
 })
 
 router.post('/signup', (req, res, next) => {
-  
-  res.send(req.body)
+  let newUser={
+    name: req.body.name,
+    hash: req.body.password,
+    email: req.body.email
+  }
+  models.User.create(newUser).then(user=>{
+    res.send('oke')
+  })
 })
 
 module.exports = router

@@ -1,0 +1,3 @@
+function hashing(plainPassword){
+    return
+}
