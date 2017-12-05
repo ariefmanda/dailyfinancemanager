@@ -1,15 +1,12 @@
-const express = require('express')
+const model = require('./models')
 
 
 
-let app = express()
 
-app.set('view engine', 'ejs')
-
-app.get('/', (req, res) => {
-  res.render('home', {pageTitle: 'Home'})
-})
-
-app.listen(3000, ()=>{
-  console.log('Express Listening @3000')
+model.User.create({
+  name : 'Arief',
+  email: 'arief@gmail.com',
+  hash: '1234'
+}).then(user => {
+  console.log(user)
 })

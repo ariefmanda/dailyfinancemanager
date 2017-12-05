@@ -12,7 +12,7 @@ app.use(session({
 
 app.use('/auth',require('./routes/auth'))
 // app.use('/transaction',require('./routes/transaction'))
-app.use('/wishlist',require('./routes/wishList'))
+app.use('/wishlist',require('./routes/wisht'))
 // app.use('/report',require('./routes/report'))
 // app.use('/budget',require('./routes/budget'))
 app.use('/',function(req,res) {

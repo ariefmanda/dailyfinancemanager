@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-
+const models = require('../models')
 
 router.get('/login', (req, res, next) => {
   res.render('authLogin', {
@@ -9,7 +9,6 @@ router.get('/login', (req, res, next) => {
 })
 
 router.post('/login', (req, res, next) => {
-  res.send(req.body)
 })
 router.get('/signup', (req, res, next) => {
   res.render('authSignup', {
