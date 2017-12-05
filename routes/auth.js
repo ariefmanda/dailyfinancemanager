@@ -15,9 +15,20 @@ router.post('/login', (req, res, next) => {
     }
   }).then(user => {
     if(user){
-      
-    }else{  
-      render.send('email not found')
+      user.comparePassword(password, user.hash, (success)=>{
+        if(success){
+          res.session.loggedIn = true
+          res.session.userId = user.id
+          res.flash('Login Sukses')
+          res.redirect('/transaction')
+        }else{
+          res.flash('')
+          res.redirect('/transaction')
+        }
+      }) 
+    }else{
+      res.flash('Email not found')
+      res.redirect('/auth/login')
     }
   })
 })

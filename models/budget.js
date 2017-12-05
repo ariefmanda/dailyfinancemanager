@@ -5,5 +5,6 @@ module.exports = (sequelize, DataTypes) => {
     year: DataTypes.INTEGER,
     amount: DataTypes.INTEGER,
   });
+  
   return Budget;
 };
