@@ -1,5 +1,5 @@
-var express = require('express');
-var router = express.Router();
+var express = require('express')
+var router = express.Router()
 const models = require('../models')
 
 router.get('/login', (req, res, next) => {
@@ -8,10 +8,18 @@ router.get('/login', (req, res, next) => {
   })
 })
 router.post('/login', (req, res, next) => {
-  models.User.find({where:{
-    email:req.body.email,
-    hash: req.body.password,
-  }})
+  let { email, password } = req.body
+  models.User.findOne({
+    where: {
+      email: email
+    }
+  }).then(user => {
+    if(user){
+      
+    }else{  
+      render.send('email not found')
+    }
+  })
 })
 router.get('/signup', (req, res, next) => {
   res.render('authSignup', {
@@ -20,12 +28,12 @@ router.get('/signup', (req, res, next) => {
 })
 
 router.post('/signup', (req, res, next) => {
-  let newUser={
+  let newUser = {
     name: req.body.name,
     hash: req.body.password,
     email: req.body.email
   }
-  models.User.create(newUser).then(user=>{
+  models.User.create(newUser).then(user => {
     res.send('oke')
   })
 })

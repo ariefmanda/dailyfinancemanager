@@ -1,8 +1,8 @@
 var express = require('express');
 var router = express.Router();
 
-router.add('/', (req, res, next) => {
-  
+router.get('/', (req, res, next) => {
+  res.send('ok transation')
 });
 
 module.exports = router;

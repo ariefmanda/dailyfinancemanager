@@ -1,3 +1,0 @@
-function hashing(plainPassword){
-    return
-}
