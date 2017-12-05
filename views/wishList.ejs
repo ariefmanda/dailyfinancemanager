@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%- include('./partials/metaHead'); %>
+</head>
+<body>
+  <%- include('./partials/header'); %>
+  <table class="ui celled compact table">
+    <thead>
+      <th>Name</th>
+      <th>Fullfilled</th>
+    </thead>
+    <tbody>
+        <% for(let wisht of wishts) {%>
+          <tr>
+            <td><%= wisht.name %></td>
+            <td><%= wisht.fullfilled?'Yes':'No';%></td>
+          </tr>  
+        <% } %>
+    </tbody>
+  </table>
+</body>
+</html>
