@@ -12,18 +12,30 @@ module.exports = {
         isBetaMember: false
       }], {});
     */
-    return queryInterface.bulkInsert('Category', [{
+    return queryInterface.bulkInsert('Categories', [{
       name: 'Bahan Bakar',
+      createdAt: new Date(),
+      updatedAt: new Date()
     },{
       name: 'Makanan',
+      createdAt: new Date(),
+      updatedAt: new Date()
     },{
       name: 'Minuman',
+      createdAt: new Date(),
+      updatedAt: new Date()
     },{
       name: 'Parkir',
+      createdAt: new Date(),
+      updatedAt: new Date()
     },{
       name: 'Poison',
+      createdAt: new Date(),
+      updatedAt: new Date()
     },{
       name: 'Uncategorized',
+      createdAt: new Date(),
+      updatedAt: new Date()
     },], {});
   },
 

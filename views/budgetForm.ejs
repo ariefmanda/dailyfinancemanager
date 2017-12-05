@@ -5,6 +5,15 @@
 </head>
 <body>
   <%- include('./partials/header'); %>
-  Hello
+  <form action="" method="post" class="ui form">
+      <label>Year:</label>
+
+      <label>Month:</label>
+
+      <label>Budget:</label>
+
+      <input type="date" name="name" value="<%= budget.year || '' %>" placeholder="Name">
+      <input class="ui primary button" type="submit" value="Save">
+    </form>
 </body>
 </html>

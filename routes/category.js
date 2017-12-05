@@ -3,10 +3,12 @@ var router = express.Router();
 const models = require('../models');
 
 router.get('/', (req, res, next) => {
-  models.Category.findAll()
-    .then(categorys => {
+  models.Category.findAll({
+      order:[['name','ASC']]
+  })
+    .then(categories => {
       res.render('categoryList', {
-        categorys: categorys,
+        categories: categories,
         pageTitle: 'Category List'
       });
     })
@@ -30,7 +32,7 @@ router.post('/add', (req, res, next) => {
     .catch(next);
 });
 
-router.get('/:id/edit', function(req, res) {
+router.get('/:id/edit', function(req, res, next) {
     models.Category.findById(req.params.id)
       .then(Category => {
         res.render('categoryForm', {
@@ -41,7 +43,7 @@ router.get('/:id/edit', function(req, res) {
       .catch(next);
   });
   
-  router.post('/:id/edit', function(req, res) {
+  router.post('/:id/edit', function(req, res, next) {
     let category = {
       name: req.body.name,
     };
@@ -54,7 +56,7 @@ router.get('/:id/edit', function(req, res) {
       .catch(next);
   });
   
-  router.get('/:id/delete', function(req, res) {
+  router.get('/:id/delete', function(req, res, next) {
     models.Category.destroy({
       where: {
         id: req.params.id

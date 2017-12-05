@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%- include('./partials/metaHead'); %>
+</head>
+<body>
+  <%- include('./partials/header'); %>
+  <table class="ui celled compact table">
+    <thead>
+      <th>Date</th>
+      <th>Budget</th>
+      <th>Action</th>
+    </thead>
+    <tbody>
+        <% for(let budget of budgets) {%>
+          <tr>
+            <td><%= budget.nameMonth()+' '+budget.year %></td>
+            <td>Rp <%= budget.amount%></td>
+            <td>
+              <a class "ui button mini" href="/budget/<%= budget.id %>/edit">Edit</a>
+              <a href="/budget/<%= budget.id%>/delete">Delete</a>
+            </td>
+          </tr>  
+        <% } %>
+    </tbody>
+  </table>
+</body>
+</html>

@@ -3,10 +3,10 @@ const model = require('./models')
 
 
 
-model.User.create({
-  name : 'Arief',
-  email: 'arief@gmail.com',
-  hash: '1234'
+model.Budget.create({
+  year: 2017,
+  month: 2,
+  amount:12098
 }).then(user => {
   console.log(user)
 })

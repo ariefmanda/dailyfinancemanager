@@ -9,12 +9,17 @@
     <thead>
       <th>Name</th>
       <th>Fullfilled</th>
+      <th>Action</th>
     </thead>
     <tbody>
         <% for(let wisht of wishts) {%>
           <tr>
             <td><%= wisht.name %></td>
             <td><%= wisht.fullfilled?'Yes':'No';%></td>
+            <td>
+              <a class "ui button mini" href="/wisht/<%= wisht.id %>/edit">Edit</a>
+              <a href="/wisht/<%= wisht.id%>/delete">Delete</a>
+            </td>
           </tr>  
         <% } %>
     </tbody>

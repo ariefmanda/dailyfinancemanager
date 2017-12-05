@@ -16,7 +16,8 @@ app.use('/auth',require('./routes/auth'))
 app.use('/transaction', checkLoginHandler, require('./routes/transaction'))
 app.use('/wishlist', checkLoginHandler, require('./routes/wisht'))
 app.use('/report', checkLoginHandler, require('./routes/report'))
-app.use('/budget', checkLoginHandler, require('./routes/budget'))
+app.use('/budget',  require('./routes/budget'))
+app.use('/category', require('./routes/category'))
 app.use('/',function(req,res) {
     res.render('home',{
         pageTitle : 'Home'
