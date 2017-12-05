@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%- include('./partials/metaHead'); %>
+</head>
+<body>
+  <%- include('./partials/header'); %>
+  <table class="ui celled compact table">
+    <thead>
+      <th>Name Category</th>
+      <th>Actions</th>
+    </thead>
+    <tbody>
+        <% for(let category of categorys) {%>
+          <tr>
+            <td><%= category.name %></td>
+            <td>
+                <a class "ui button mini" href="/category/<%= category.id %>/edit">Edit</a>
+                <a href="/category/<%= category.id%>/delete">Delete</a>
+            </td>
+          </tr>  
+        <% } %>
+    </tbody>
+  </table>
+</body>
+</html>
