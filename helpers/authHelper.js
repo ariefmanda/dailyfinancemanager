@@ -1,6 +1,6 @@
 function checkLoginHandler(req, res, next) {
   console.log('------->',req.url)
-  login = false
+  login = true
   if(login){
     next()
   }else{

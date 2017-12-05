@@ -28,7 +28,7 @@ router.post('/add', function(req, res, next) {
       name: req.body.name,
       fullfilled: false
     };
-    models.Whist.create(wisht)
+    models.Wish.create(wisht)
       .then(() => {
         res.redirect('/wisht');
       })
@@ -39,11 +39,11 @@ router.post('/add', function(req, res, next) {
 });
 
 router.get('/:id/edit', function(req, res, next) {
-  models.Whist.findById(req.params.id)
+  models.Wish.findById(req.params.id)
     .then(wisht => {
       res.render('wishtForm', {
         pageTitle: 'Wisht Edit',
-        wisht: whist
+        wisht: wish
       });
     })
     .catch(next);
@@ -64,7 +64,7 @@ router.post('/:id/edit', function(req, res, next) {
 });
 
 router.get('/:id/delete', function(req, res, next) {
-  models.Whist.destroy({
+  models.Wish.destroy({
     where: {
       id: req.params.id
     }

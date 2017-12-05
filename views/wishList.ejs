@@ -12,13 +12,13 @@
       <th>Action</th>
     </thead>
     <tbody>
-        <% for(let wisht of wishts) {%>
+        <% for(let wish of wishes) {%>
           <tr>
-            <td><%= wisht.name %></td>
-            <td><%= wisht.fullfilled?'Yes':'No';%></td>
+            <td><%= wish.name %></td>
+            <td><%= wish.fullfilled?'Yes':'No';%></td>
             <td>
-              <a class "ui button mini" href="/wisht/<%= wisht.id %>/edit">Edit</a>
-              <a href="/wisht/<%= wisht.id%>/delete">Delete</a>
+              <a class "ui button mini" href="/wish/<%= wish.id %>/edit">Edit</a>
+              <a href="/wish/<%= wish.id%>/delete">Delete</a>
             </td>
           </tr>  
         <% } %>

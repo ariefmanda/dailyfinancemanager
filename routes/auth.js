@@ -32,6 +32,7 @@ router.post('/login', (req, res, next) => {
     }
   })
 })
+
 router.get('/signup', (req, res, next) => {
   res.render('authSignup', {
     pageTitle: 'Sign Up'

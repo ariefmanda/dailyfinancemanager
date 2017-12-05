@@ -2,35 +2,36 @@ var express = require('express');
 var router = express.Router();
 const models = require('../models');
 
-router.get('/', function(req, res) {
-  models.Wisht.findAll()
-    .then(Whists => {
+router.get('/', function(req, res, next) {
+  models.Wish.findAll()
+    .then(wishes => {
       res.render('wishList', {
-        wishts: Whists,
-        pageTitle: 'Whist List'
+        pageTitle: 'Wish List',
+        wishes: wishes
+        
       });
     })
     .catch(next);
 });
 
 router.get('/add', function(req, res) {
-  res.render('wishtForm', {
-    wisht: {
+  res.render('wishForm', {
+    wish: {
       name: req.query.name
     },
-    pageTitle: 'Wisht Add'
+    pageTitle: 'Wish Add'
   });
 });
 
 router.post('/add', function(req, res) {
   if (req.body.yesno == 'yes') {
-    let wisht = {
+    let wish = {
       name: req.body.name,
       fullfilled: false
     };
-    models.Whist.create(wisht)
+    models.Wish.create(wish)
       .then(() => {
-        res.redirect('/wisht');
+        res.redirect('/wish');
       })
       .catch(next);
   } else {
@@ -39,38 +40,40 @@ router.post('/add', function(req, res) {
 });
 
 router.get('/:id/edit', function(req, res) {
-  models.Whist.findById(req.params.id)
-    .then(wisht => {
-      res.render('wishtForm', {
-        pageTitle: 'Wisht Edit',
-        wisht: whist
+  models.Wish.findById(req.params.id)
+    .then(wish => {
+      res.render('wishForm', {
+        pageTitle: 'wish Edit',
+        wish: wish
       });
     })
     .catch(next);
 });
 
 router.post('/:id/edit', function(req, res) {
-  let wisht = {
+  let currentWish = {
     name: req.body.name,
     fullfilled: false
   };
-  models.Wisht.update(wisht, {
-    where: {
-      id: req.params.id
-    }
-  })
-    .then(() => [res.redirect('/wisht')])
-    .catch(next);
-});
-
-router.get('/:id/delete', function(req, res) {
-  models.Whist.destroy({
+  models.Wish.update(currentWish, {
     where: {
       id: req.params.id
     }
   })
     .then(() => {
-      req.redirect('/wisht');
+      res.redirect('/wish')
+    })
+    .catch(next);
+});
+
+router.get('/:id/delete', function(req, res) {
+  models.Wish.destroy({
+    where: {
+      id: req.params.id
+    }
+  })
+    .then(() => {
+      req.redirect('/wish');
     })
     .catch(next);
 });
