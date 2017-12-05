@@ -1,12 +1,14 @@
 const express = require('express')
 const bodyParser = require('body-parser')
-
+const session = require('express-session')
 
 const app = express()
 // app.use(parse.json())
 app.set('view engine', 'ejs')
 app.use(bodyParser.urlencoded({extended:false}))
-
+app.use(session({
+    secret : 'iloveyou'
+}))
 
 app.use('/auth',require('./routes/auth'))
 // app.use('/transaction',require('./routes/transaction'))
