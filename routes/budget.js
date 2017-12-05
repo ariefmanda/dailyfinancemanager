@@ -14,63 +14,59 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/add', function(req, res, next) {
-  res.render('wishtForm', {
-    wisht: {
-      name: req.query.name
-    },
-    pageTitle: 'Wisht Add'
+  res.render('budgetForm', {
+    budget:'',
+    pageTitle: 'Budget Add'
   });
 });
 
 router.post('/add', function(req, res, next) {
-  if (req.body.yesno == 'yes') {
-    let wisht = {
-      name: req.body.name,
-      fullfilled: false
-    };
-    models.Whist.create(wisht)
-      .then(() => {
-        res.redirect('/wisht');
-      })
-      .catch(next);
-  } else {
-    res.redirect('/transaction');
-  }
+  let newBudget = {
+    year: req.body.year,
+    month: req.body.month,
+    amount: req.body.amount
+  };
+  models.Budget.create(newBudget)
+    .then(() => {
+      res.redirect('/budget');
+    })
+    .catch(next);
 });
 
 router.get('/:id/edit', function(req, res, next) {
-  models.Whist.findById(req.params.id)
-    .then(wisht => {
-      res.render('wishtForm', {
-        pageTitle: 'Wisht Edit',
-        wisht: whist
+  models.Budget.findById(req.params.id)
+    .then(Budgets => {
+      res.render('budgetForm', {
+        pageTitle: 'Budget Edit',
+        budget: Budgets
       });
     })
     .catch(next);
 });
 
 router.post('/:id/edit', function(req, res, next) {
-  let wisht = {
-    name: req.body.name,
-    fullfilled: false
+  let budget = {
+    year: req.body.year,
+    month: req.body.month,
+    amount: req.body.amount
   };
-  models.Wisht.update(wisht, {
+  models.Budget.update(budget, {
     where: {
       id: req.params.id
     }
   })
-    .then(() => [res.redirect('/wisht')])
+    .then(() => [res.redirect('/budget')])
     .catch(next);
 });
 
 router.get('/:id/delete', function(req, res, next) {
-  models.Whist.destroy({
+  models.Budget.destroy({
     where: {
       id: req.params.id
     }
   })
     .then(() => {
-      req.redirect('/wisht');
+      res.redirect('/budget');
     })
     .catch(next);
 });

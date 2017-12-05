@@ -70,7 +70,7 @@ router.get('/:id/delete', function(req, res) {
     }
   })
     .then(() => {
-      req.redirect('/wisht');
+      res.redirect('/wisht');
     })
     .catch(next);
 });
