@@ -16,12 +16,16 @@ module.exports = {
       month: 12,
       year: 2017,
       amount: 1000000,
+      userId: 1,
+      expense: 0,
       createdAt: new Date(),
       updatedAt: new Date()
     },{
       month: 1,
       year: 2018,
       amount: 2000000,
+      userId:1,
+      expense: 0,
       createdAt: new Date(),
       updatedAt: new Date()
     }], {});
