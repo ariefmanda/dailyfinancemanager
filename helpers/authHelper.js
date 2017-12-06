@@ -4,7 +4,7 @@ function checkLoginHandler(req, res, next) {
   if(login){
     next()
   }else{
-    res.flash('Please Login before continue')
+    res.flash('Please Login before continue ')
     res.redirect('/auth/login')
   }
 }
