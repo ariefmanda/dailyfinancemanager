@@ -17,13 +17,13 @@ router.post('/login', (req, res, next) => {
     if(user){
       user.comparePassword(password, user.hash, (success)=>{
         if(success){
-          res.session.loggedIn = true
-          res.session.userId = user.id
+          req.session.loggedIn = true
+          req.session.userId = user.id
           res.flash('Login Sukses')
           res.redirect('/transaction')
         }else{
-          res.flash('')
-          res.redirect('/transaction')
+          res.flash('Login Gagal')
+          res.redirect('/auth/login')
         }
       }) 
     }else{
@@ -31,6 +31,7 @@ router.post('/login', (req, res, next) => {
       res.redirect('/auth/login')
     }
   })
+  .catch(next)
 })
 
 router.get('/signup', (req, res, next) => {
@@ -47,6 +48,13 @@ router.post('/signup', (req, res, next) => {
   }
   models.User.create(newUser).then(user => {
     res.send('oke')
+  })
+})
+
+router.get('/logout', (req,res,next) =>{
+  req.session.destroy(()=>{
+    res.flash('You Logged Out')
+    res.redirect('/')
   })
 })
 

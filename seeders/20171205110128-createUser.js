@@ -33,13 +33,13 @@ module.exports = {
     }))
     
     
-    queryInterface.bulkInsert('Users', [{
-      name: 'John Doe',
-      email: 'john@doe.com',
-      hash: '1234',
-      createdAt: new Date(),
-      updatedAt: new Date()
-    }], {});
+    // queryInterface.bulkInsert('Users', [{
+    //   name: 'John Doe',
+    //   email: 'john@doe.com',
+    //   hash: '1234',
+    //   createdAt: new Date(),
+    //   updatedAt: new Date()
+    // }], {});
   },
 
   down: (queryInterface, Sequelize) => {

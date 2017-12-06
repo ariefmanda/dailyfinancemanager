@@ -7,11 +7,12 @@ const app = express()
 // app.use(parse.json())
 app.set('view engine', 'ejs')
 app.use(cookieParser())
+app.use(session({
+  secret : 'iloveyou'
+}))
 app.use(bodyParser.urlencoded({extended:false}))
 app.use(flashMessageHandler)
-app.use(session({
-    secret : 'iloveyou'
-}))
+
 app.use('/auth',require('./routes/auth'))
 app.use('/transaction', checkLoginHandler, require('./routes/transaction'))
 app.use('/wish', checkLoginHandler, require('./routes/wish'))
