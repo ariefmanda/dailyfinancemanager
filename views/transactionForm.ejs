@@ -9,15 +9,19 @@
     <label>Category Name:</label>
     <select name="year" class="ui dropdown">
     <% for(let [index,category] of categories.entries()) {%>
-        <option value= "<%= index+1 %>" ><%=category.name%></option> 
+        <option value= "<%= category.id %>" ><%=category.name%></option> 
     <%} %>
     </select>
     <label>Transaction Name:</label>
     <input type="text" name="name" value="<%= transaction.name || '' %>" placeholder="Name">
     <label>Price:</label>
     <input type="text" name="name" value="<%= transaction.price || '' %>" placeholder="Name">
-    
-    
+    <label>Wishes:</label>
+    <select name="wish" class="ui dropdown">
+    <% for(let [index,wish] of wishes.entries()) {%>
+        <option value= "<%= wish.id %>" ><%=wish.name%></option> 
+    <%} %>
+    </select>
     <input class="ui primary button" type="submit" value="Save">
   </form>
 </body>

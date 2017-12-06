@@ -1,4 +1,3 @@
-
 var express = require('express')
 var router = express.Router()
 const models = require('../models')
@@ -9,22 +8,27 @@ router.get('/', (req, res, next) => {
       user
         .getTransactions({ include: [models.Category] })
         .then(transactions => {
-          res.render('transactionList', {
-            user: user,
-            transactions: transactions,
-            pageTitle: 'List Transactions'
-          })
+            res.render('transactionList', {
+              user: user,
+              transactions: transactions,
+              pageTitle: 'List Transactions'
+            })
         })
         .catch(next)
     })
     .catch(next)
 })
 router.get('/add', function(req, res, next) {
-  models.Category.findAll().then(categories => {
-    res.render('transactionForm', {
-      transaction: false,
-      categories: categories,
-      pageTitle: 'Transaction Add'
+  models.User.findById(req.session.userId).then(user=>{
+    user.getWishes().then(wishes=>{
+      models.Category.findAll().then(categories => {
+        res.render('transactionForm', {
+          wishes:wishes,
+          transaction: false,
+          categories: categories,
+          pageTitle: 'Transaction Add'
+        })
+      })
     })
   })
 })
