@@ -5,6 +5,7 @@
 </head>
 <body>
   <%- include('./partials/header'); %>
+  <h3><%= expenses %></h3>
   <table class="ui celled compact table">
     <thead>
       <th>Tanggal</th>
@@ -31,5 +32,6 @@
         <% } %>
     </tbody>
   </table>
+  <h3><a class="ui primary button" href="/transaction/add">Add Transaction</a></h3>
 </body>
 </html>

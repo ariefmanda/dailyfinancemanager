@@ -7,7 +7,7 @@
   <%- include('./partials/header'); %>
   <form action="" method="post" class="ui form">
     <label>Category Name:</label>
-    <select name="year" class="ui dropdown">
+    <select name="categoryId" class="ui dropdown">
     <% for(let [index,category] of categories.entries()) {%>
         <option value= "<%= category.id %>" ><%=category.name%></option> 
     <%} %>
@@ -15,9 +15,10 @@
     <label>Transaction Name:</label>
     <input type="text" name="name" value="<%= transaction.name || '' %>" placeholder="Name">
     <label>Price:</label>
-    <input type="text" name="name" value="<%= transaction.price || '' %>" placeholder="Name">
+    <input type="text" name="price" value="<%= transaction.price || '' %>" placeholder="Name">
     <label>Wishes:</label>
-    <select name="wish" class="ui dropdown">
+    <select name="wishId" class="ui dropdown">
+        <option value= "0" >UnWishes</option> 
     <% for(let [index,wish] of wishes.entries()) {%>
         <option value= "<%= wish.id %>" ><%=wish.name%></option> 
     <%} %>
