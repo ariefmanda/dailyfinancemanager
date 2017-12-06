@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%- include('./partials/metaHead'); %>
+</head>
+<body>
+  <%- include('./partials/header'); %>
+  <table class="ui celled compact table">
+    <thead>
+      <th>Tanggal</th>
+      <th>Name Transaction</th>
+      <th>Name Category</th>
+      <th>Pengeluaran</th>
+      <th>Actions</th>
+    </thead>
+    <tbody>
+        <% for(let transaction of transactions) {%>
+          <tr>
+            <td> <%= transaction.createdAt %> </td>
+            <td><%= transaction.name %>
+            </td>
+            <td><%= transaction.Category.name %>
+            </td>
+            <td><%= transaction.price %>
+            </td>
+            <td>
+                <a class "ui button mini" href="/transaction/<%= transaction.id %>/edit">Edit</a>
+                <a href="/transaction/<%= transaction.id%>/delete">Delete</a>
+            </td>
+          </tr>  
+        <% } %>
+    </tbody>
+  </table>
+</body>
+</html>

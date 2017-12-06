@@ -3,7 +3,11 @@ var router = express.Router();
 const models = require('../models');
 
 router.get('/', function(req, res, next) {
-  models.Budget.findAll()
+  models.Budget.find({
+    where:{
+      userId:req.session.userId
+    }
+  })
     .then(Budgets => {
       res.render('budgetList', {
         budgets: Budgets,
@@ -15,13 +19,13 @@ router.get('/', function(req, res, next) {
 
 router.get('/add', function(req, res, next) {
   res.render('budgetForm', {
-    budget:'',
     pageTitle: 'Budget Add'
   });
 });
 
 router.post('/add', function(req, res, next) {
   let newBudget = {
+    userId:req.session.userId,
     year: req.body.year,
     month: req.body.month,
     amount: req.body.amount
@@ -46,6 +50,7 @@ router.get('/:id/edit', function(req, res, next) {
 
 router.post('/:id/edit', function(req, res, next) {
   let budget = {
+    userId:req.session.userId,
     year: req.body.year,
     month: req.body.month,
     amount: req.body.amount

@@ -3,7 +3,11 @@ var router = express.Router();
 const models = require('../models');
 
 router.get('/', function(req, res, next) {
-  models.Wish.findAll()
+  models.Wish.findOne({
+    where:{
+      userId:req.session.userId
+    }
+  })
     .then(wishes => {
       res.render('wishList', {
         pageTitle: 'Wish List',

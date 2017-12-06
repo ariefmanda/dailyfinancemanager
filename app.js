@@ -14,9 +14,9 @@ app.use(bodyParser.urlencoded({extended:false}))
 app.use(flashMessageHandler)
 
 app.use('/auth',require('./routes/auth'))
-app.use('/transaction', checkLoginHandler, require('./routes/transaction'))
-app.use('/wish', checkLoginHandler, require('./routes/wish'))
-app.use('/report', checkLoginHandler, require('./routes/report'))
+app.use('/transaction', require('./routes/transaction'))
+app.use('/wish', require('./routes/wish'))
+app.use('/report', require('./routes/report'))
 app.use('/budget',  require('./routes/budget'))
 app.use('/category', require('./routes/category'))
 app.use('/',function(req,res) {
