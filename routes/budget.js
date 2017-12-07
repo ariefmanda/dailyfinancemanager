@@ -11,7 +11,6 @@ router.get('/', function(req, res, next) {
           include: [
             {
               model: models.Category,
-              
               include : [{
                 model : models.Transaction,  
               }]
@@ -21,7 +20,7 @@ router.get('/', function(req, res, next) {
       ])
     )
     .then(([user, budgets]) => {
-      console.log(budgets[0].Categories[0].Transactions[0].price)
+      console.log(budgets[0].Categories[0].Transactions)
       res.render('budgetList', {
         pageTitle: 'Budgets List',
         user: user,

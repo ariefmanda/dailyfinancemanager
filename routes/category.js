@@ -4,6 +4,9 @@ const models = require('../models');
 
 router.get('/', (req, res, next) => {
   models.Category.findAll({
+      where:{
+        userId:req.session.userId,
+      },
       order:[['name','ASC']]
   })
     .then(categories => {
@@ -25,7 +28,9 @@ router.post('/add', (req, res, next) => {
   let newCategory = {
     name: req.body.name
   };
-  models.Category.create(newCategory)
+  models.Category.create(newCategory,{where:{
+    userId:req.session.userId,
+  }})
     .then(() => {
       res.redirect('/category');
     })
@@ -33,7 +38,12 @@ router.post('/add', (req, res, next) => {
 });
 
 router.get('/:id/edit', function(req, res, next) {
-    models.Category.findById(req.params.id)
+    models.Category.find({
+      where:{
+        userId:req.session.userId,
+        id:req.params.id
+      },
+    })
       .then(Category => {
         res.render('categoryForm', {
           pageTitle: 'Category Edit',
@@ -49,6 +59,7 @@ router.get('/:id/edit', function(req, res, next) {
     };
     models.Category.update(category, {
       where: {
+        userId:req.session.userId,
         id: req.params.id
       }
     })
@@ -59,6 +70,7 @@ router.get('/:id/edit', function(req, res, next) {
   router.get('/:id/delete', function(req, res, next) {
     models.Category.destroy({
       where: {
+        userId:req.session.userId,
         id: req.params.id
       }
     })

@@ -14,22 +14,42 @@ module.exports = {
     */
     return queryInterface.bulkInsert('Categories', [{
       name: 'Bahan Bakar',
+      userId: 1,
       createdAt: new Date(),
       updatedAt: new Date()
     },{
       name: 'Makanan',
+      userId: 1,
       createdAt: new Date(),
       updatedAt: new Date()
     },{
       name: 'Minuman',
+      userId: 1,
       createdAt: new Date(),
       updatedAt: new Date()
     },{
       name: 'Piknik',
+      userId: 1,
       createdAt: new Date(),
       updatedAt: new Date()
     },{
       name: 'Hedon',
+      userId: 1,
+      createdAt: new Date(),
+      updatedAt: new Date()
+    },{
+      name: 'Kursus',
+      userId: 2,
+      createdAt: new Date(),
+      updatedAt: new Date()
+    },{
+      name: 'Eat',
+      userId: 2,
+      createdAt: new Date(),
+      updatedAt: new Date()
+    },{
+      name: 'Drink',
+      userId: 2,
       createdAt: new Date(),
       updatedAt: new Date()
     }]);

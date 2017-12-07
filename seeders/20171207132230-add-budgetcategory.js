@@ -44,7 +44,7 @@ module.exports = {
       updatedAt: new Date()
     },{
       budgetId: 3,
-      categoryId: 5,
+      categoryId: 7,
       amount : 1500000,
       createdAt: new Date(),
       updatedAt: new Date()

@@ -29,7 +29,6 @@
                 <% for(let category of budget.Categories) {%>
                   <% let total = 0 %>
                   <% for(let transaction of category.Transactions) {%>
-                      ini:::: <%= transaction.name %> <%= transaction.price %> :::: 
                       <% total = total + transaction.price %>
                   <% } %>
                   <li><%= category.name %> : <%= total %></li>
