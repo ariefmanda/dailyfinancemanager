@@ -14,20 +14,26 @@ app.use(
     secret: 'iloveyou'
   })
 )
+
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 app.use(flashMessageHandler)
+app.use('/auth', require('./routes/auth'))
 app.use('/transaction', checkLoginHandler, require('./routes/transaction'))
 app.use('/wish', checkLoginHandler, require('./routes/wish'))
 app.use('/report', checkLoginHandler, require('./routes/report'))
 app.use('/budget', checkLoginHandler, require('./routes/budget'))
 app.use('/category', checkLoginHandler, require('./routes/category'))
-app.use('/auth', require('./routes/auth'))
+
 app.use('/', function(req, res) {
   res.render('home', {
     pageTitle: 'Home'
   })
 })
+app.use(function(req, res, next) {
+  res.locals.loggedInUser = req.session.loggedInUser;
+  next();
+});
 app.use(errorHandler)
 
 app.listen(3000, function(req, res) {

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('./partials/metaHead'); %>
+    
+</head>
+<body>
+    <%- include('./partials/header'); %>
+    
+  <table class="ui celled compact table">
+    <thead>
+      <th>Month</th>
+      <th>Year</th>
+      <th>Budget</th>
+      <th>Total Expenses</th>
+    </thead>
+    <tbody>
+      <% for(let userBudget of userBudgets) { %>
+        <tr>
+          <td><%= userBudget.month %></td>
+          <td><%= userBudget.year %></td>
+          <td><%= userBudget.amount %></td>
+          <td></td>
+        </tr>
+      <% } %>
+    </tbody>
+  </table>
+</body>
+</html>

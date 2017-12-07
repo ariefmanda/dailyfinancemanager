@@ -4,7 +4,12 @@
   <%- include('./partials/metaHead'); %>
 </head>
 <body>
+    
   <%- include('./partials/header'); %>
-  Hello
+  <hr>
+  <h1>Hello World</h1>  
+  <% if(locals.loggedInUser){ %>
+    HELLO <%= loggedInUser.name %>
+  <% } %>
 </body>
 </html>

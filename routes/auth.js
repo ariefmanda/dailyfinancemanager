@@ -19,8 +19,11 @@ router.post('/login', (req, res, next) => {
         if(success){
           req.session.loggedIn = true
           req.session.userId = user.id
-          res.flash('Login Sukses')
-          res.redirect('/transaction')
+          req.session.user = user
+          
+          res.send('ok')
+          // res.flash('Login Sukses')
+          // res.redirect('/transaction')
         }else{
           res.flash('Login Gagal')
           res.redirect('/auth/login')
@@ -54,6 +57,8 @@ router.post('/signup', (req, res, next) => {
 router.get('/logout', (req,res,next) =>{
   req.session.destroy(()=>{
     res.flash('You Logged Out')
+    res.locals.localsUserId = null
+    
     res.redirect('/')
   })
 })
