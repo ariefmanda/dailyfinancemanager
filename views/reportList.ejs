@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%- include('./partials/metaHead'); %>
+</head>
+<body>
+  <%- include('./partials/header'); %>
+  <table class="ui celled compact table">
+    <thead>
+      <th>Date</th>
+      <th>Budget</th>
+      <th>Expense</th>
+      <th>Balance</th>
+      <th>Action</th>
+    </thead>
+    <tbody>
+        <% for(let budget of budgets) {%>
+          <tr>
+            <td><%= budget.nameMonth(budget.month)+' '+budget.year %></td>
+            <td>Rp <%= budget.amount%></td>
+            <td>Rp <%= budget.expensess %></td>
+            <td>Rp <%= budget.amount-budget.expensess %></td>
+            <td>
+              <a href="report/budget/<%= budget.id%>/detail">Show Detail</a>
+            </td>
+          </tr>  
+        <% } %>
+    </tbody>
+    <tfoot>
+        <th>
+            Total
+        </th>
+        <th>
+            Rp <%= totalBudgets %>
+        </th>
+        <th>
+          Rp <%= totalExpensess %>
+        </th>
+        <th>
+          Rp <%= totalBudgets-totalExpensess %>
+      </th>
+    </tfoot>
+  </table>
+</body>
+</html>
