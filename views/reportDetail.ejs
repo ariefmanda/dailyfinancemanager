@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%- include('./partials/metaHead'); %>
+</head>
+<body>
+  <%- include('./partials/header'); %>
+  <table class="ui celled compact table">
+    <thead>
+      <th>Date</th>
+      <th>Category</th>
+      <th>Transaction Name</th>
+      <th>Budget</th>
+      <th>Expense</th>
+      <th>Balance</th>
+    </thead>
+    <tbody>
+        <% for(let transaction of transactions) {%>
+          <tr>
+            <td><%= transaction.date[0]%></td>
+            <td><%= transaction.category%></td>
+            <td><%= transaction.name%></td>
+            <td>Rp <%= transaction.budget%></td>
+            <td>Rp <%= transaction.price %></td>
+            <td>Rp <%= transaction.budget-transaction.price%></td>
+          </tr>  
+        <% } %>
+    </tbody>
+    <tfoot>
+        <th colspan="3">
+            Total
+        </th>
+        <th>
+            Rp 
+        </th>
+        <th>
+          Rp
+        </th>
+        <th>
+          Rp
+      </th>
+    </tfoot>
+  </table>
+</body>
+</html>
