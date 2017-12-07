@@ -6,7 +6,7 @@
   "author": "ariefmanda <arief.manda57@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "start": "nodemon -e js,ejs"
+    "start": "node app.js"
   },
   "dependencies": {
     "bcrypt": "^1.0.3",
