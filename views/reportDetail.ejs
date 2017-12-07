@@ -3,7 +3,7 @@
 <head>
   <%- include('./partials/metaHead'); %>
 </head>
-<body>
+<body> 
   <%- include('./partials/header'); %>
   <table class="ui celled compact table">
     <thead>
@@ -15,29 +15,28 @@
       <th>Balance</th>
     </thead>
     <tbody>
+        <% let pengeluaran=0 %>
         <% for(let transaction of transactions) {%>
           <tr>
             <td><%= transaction.date[0]%></td>
             <td><%= transaction.category%></td>
             <td><%= transaction.name%></td>
-            <td>Rp <%= transaction.budget%></td>
+            <td>Rp <%= budget.amount%></td>
             <td>Rp <%= transaction.price %></td>
-            <td>Rp <%= transaction.budget-transaction.price%></td>
+            <% pengeluaran+= transaction.price%>
+            <td>Rp <%= budget.amount-=transaction.price%></td>
           </tr>  
         <% } %>
     </tbody>
     <tfoot>
-        <th colspan="3">
+        <th colspan="4">
             Total
         </th>
         <th>
-            Rp 
+          Rp <%= pengeluaran %>
         </th>
         <th>
-          Rp
-        </th>
-        <th>
-          Rp
+          Rp <%= budget.amount %>
       </th>
     </tfoot>
   </table>

@@ -4,6 +4,7 @@ const models = require('../models')
 const MonthHelper = require('../helpers/monthHelper')
 
 router.get('/', (req, res, next) => {
+  let convertDate = MonthHelper.ConvertDate(new Date())
   models.User.findById(req.session.userId).then(user => {
     user
       .getBudgets({
@@ -21,6 +22,13 @@ router.get('/', (req, res, next) => {
       .then(budgets => {
         budgets.map(budget => {
           budget.expensess = budget.Categories.reduce((ecc, category) => {
+            if(Number(budget.year)>convertDate[2]){
+              return 0
+            }else if(Number(budget.year)==convertDate[2]){
+              if(Number(budget.month)>convertDate[1]&&Number(budget.month)!=12){
+                return 0
+              }
+            }
             return (
               ecc +
               category.Transactions.reduce((acc, transaction) => {
@@ -71,7 +79,6 @@ router.get('/budget/:id/detail', (req, res, next) => {
           console.log(budget.id)
           let obj = {}
           let array = []
-
           if (budget.Categories) {
             console.log(array)
             budget.Categories.map(category => {
