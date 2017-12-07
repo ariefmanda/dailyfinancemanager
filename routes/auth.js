@@ -21,9 +21,8 @@ router.post('/login', (req, res, next) => {
           req.session.userId = user.id
           req.session.user = user
           
-          res.send('ok')
-          // res.flash('Login Sukses')
-          // res.redirect('/transaction')
+          res.flash('Login Sukses')
+          res.redirect('/transaction')
         }else{
           res.flash('Login Gagal')
           res.redirect('/auth/login')
