@@ -12,11 +12,7 @@ router.get('/', (req, res, next) => {
           res.render('transactionList', {
             user: user,
             transactions: transactions,
-            pageTitle: 'List Transactions',
-            expenses : transactions.reduce((acc, transaction) =>{
-              return acc + transaction.price
-            },0)
-
+            pageTitle: 'List Transactions'
           })
         })
         .catch(next)
@@ -92,64 +88,10 @@ router.post('/add', function(req, res, next) {
         })
       ])
     })
-    .then(([user,budget,transaction]) => {
+    .then(([user,budget,wish,transaction]) => {
       res.redirect('/transaction')
     })
     .catch(next)
-
-  // models.User.findById(req.session.userId)
-  //   .then(user => {
-  //     let convertDate=MonthHelper.ConvertDate(new Date)
-  //     user.getBudget({
-  //         where: {
-  //           month: convertDate[1],
-  //           year: convertDate[2]
-  //         }
-  //       })
-  //       .then(budget => {
-  //         // check budeget cukup ata
-  //         let priceNum = Number(req.body.price)
-  //         if (budget.expense + priceNum > budget.amount) {
-  //           res.flash('budget gak cukup')
-  //           res.redirect(`/wish/add?${req.body.name}`)
-  //         } else {
-  //           budget.expense += priceNum
-  //           budget
-  //             .save()
-  //             .then(() => {
-  //               user
-  //                 .addTransaction({
-  //                   name: req.body.name,
-  //                   price: priceNum,
-  //                   categoryId: req.body.categoryId
-  //                 })
-  //                 .then(() => {
-  //                   res.flash('OK masuk')
-  //                   res.redirect('/transaction')
-  //                   if(Number(req.body.wishId)>0){
-  //                     user.getWish({
-  //                       where : {
-  //                         id: req.body.wishId
-  //                       }
-  //                     }).then(wish =>{
-  //                       wish.fullfilled = true
-  //                       wish.save().then(()=>{
-  //                         res.redirect('/transaction')
-  //                       })
-  //                     })
-  //                     .catch(next)
-  //                   }else{
-  //                     res.redirect('/transaction')
-  //                   }
-  //                 })
-  //                 .catch(next)
-  //             })
-  //             .catch(next)
-  //         }
-  //       })
-  //       .catch(next)
-  //   })
-  //   .catch(next)
 })
 
 router.get('/:id/edit', function(req, res, next) {
@@ -229,78 +171,47 @@ router.post('/:id/edit', function(req, res, next) {
       })])
     })
     .then(([user,budget,transaction]) => {
-      res.send('ok bro')
+      res.redirect('/transaction')
     })
     .catch(next)
-
-  // models.User.findById(req.session.userId)
-  //   .then(user => {
-  //     user
-  //       .getTransaction({
-  //         where: {
-  //           id: req.params.id
-  //         }
-  //       })
-  //       .then(transaction => {
-  //         let convertDate = MonthHelper.ConvertDate(transaction.created)
-  //         user
-  //           .getBudget({
-  //             where: {
-  //               month: convertDate[1],
-  //               year: convertDate[2]
-  //             }
-  //           })
-  //           .then(budget => {
-  //             let selisih = req.body.price - transaction.price
-  //             if (budget.expense + selisih > budget.amount) {
-  //               res.flash('budget gak cukup')
-  //               res.redirect(`/wish/add?${req.body.name}`)
-  //             } else {
-  //               budget.expense += selisih
-  //               budget
-  //                 .save()
-  //                 .then(() => {
-  //                   user
-  //                     .ransaction({
-  //                       name: req.body.name,
-  //                       price: priceNum,
-  //                       categoryId: req.body.categoryId
-  //                     })
-  //                     .then(() => {
-  //                       res.flash('OK masuk')
-  //                       res.redirect('/transaction')
-  //                       if (Number(req.body.wishId) > 0) {
-  //                         user
-  //                           .getWish({
-  //                             where: {
-  //                               id: req.body.wishId
-  //                             }
-  //                           })
-  //                           .then(wish => {
-  //                             wish.fullfilled = true
-  //                             wish.save().then(() => {
-  //                               res.redirect('/transaction')
-  //                             })
-  //                           })
-  //                           .catch(next)
-  //                       } else {
-  //                         res.redirect('/transaction')
-  //                       }
-  //                     })
-  //                     .catch(next)
-  //                 })
-  //                 .catch(next)
-  //             }
-  //           })
-  //           .catch(next)
-  //       })
-  //       .catch(next)
-  //   })
-  //   .catch(next)
 })
 
-router.get('/:id/delete', (req, re, next) => {
-  models.Transaction.destroy
+router.get('/:id/delete', (req, res, next) => {
+  let convertDate = MonthHelper.ConvertDate(new Date())
+  models.User.findById(req.session.userId)
+    .then(user =>
+      Promise.all([
+        user,
+        models.Budget.findOne({
+          where: {
+            userId: user.id,
+            month: convertDate[1],
+            year: convertDate[2]
+          }
+        }),
+        models.Transaction.findOne({
+          where:{
+            id:req.params.id,
+            userId:user.id
+          }
+        })
+      ])
+    )
+    .then(([user, budget,transaction]) => {
+      budget.expense=Number(Number(budget.expense)-Number(transaction.price))
+      console.log(budget.expense)
+      return Promise.all([user, budget.save(),transaction])
+    }).then(([user, budget,transaction])=>{
+      models.Transaction.destroy({
+        where:{
+          id:req.params.id,
+          userId:user.id
+        }
+      }).then(()=>{
+        res.redirect('/transaction')
+      })
+    })
+    .catch(next)
 })
 
 module.exports = router
