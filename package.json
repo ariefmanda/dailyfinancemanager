@@ -6,7 +6,7 @@
   "author": "ariefmanda <arief.manda57@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "start": "node app.js"
+    "start": "NODE_ENV=production node app.js"
   },
   "engines": {
     "node": "8.9.1"
