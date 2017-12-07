@@ -37,21 +37,21 @@ module.exports = {
       name        : "Beli Bensin",
       price       : 0,
       userId      : 2,
-      categoryId  : 1,
+      categoryId  : 7,
       createdAt: new Date(),
       updatedAt: new Date()
     },{
       name        : "Minum Kopi",
       price       : 0,
       userId      : 2,
-      categoryId  : 2,
+      categoryId  : 8,
       createdAt: new Date(),
       updatedAt: new Date()
     },{
       name        : "Parkir PIM",
       price       : 0,
       userId      : 2,
-      categoryId  : 4,
+      categoryId  : 6,
       createdAt: new Date(),
       updatedAt: new Date()
     }], {});

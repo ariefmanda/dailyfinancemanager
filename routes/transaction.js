@@ -25,7 +25,11 @@ router.get('/add', function(req, res, next) {
       user
         .getWishes()
         .then(wishes => {
-          models.Category.findAll()
+          models.Category.findAll({
+            where:{
+              userId:req.session.userId
+            }
+          })
             .then(categories => {
               res.render('transactionForm', {
                 wishes: wishes,
@@ -107,7 +111,11 @@ router.get('/:id/edit', function(req, res, next) {
               }
             })
             .then(transaction => {
-              models.Category.findAll()
+              models.Category.findAll({
+                where:{
+                  userId:req.session.userId
+                }
+              })
                 .then(categories => {
                   res.render('transactionForm', {
                     wishes: wishes,
