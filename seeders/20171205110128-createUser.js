@@ -16,14 +16,14 @@ module.exports = {
       {
         name: 'John Doe',
         email: 'john@doe.com',
-        hash: '1234',
+        hash: '123',
         createdAt: new Date(),
         updatedAt: new Date()
       },
       {
-        name: 'Arief',
+        name: 'Arief Trimanda',
         email: 'arief@xxx.com',
-        hash: '12345',
+        hash: '123',
         createdAt: new Date(),
         updatedAt: new Date()
       }

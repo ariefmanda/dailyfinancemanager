@@ -17,7 +17,6 @@ app.use(
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 app.use(flashMessageHandler)
-
 app.use('/transaction', checkLoginHandler, require('./routes/transaction'))
 app.use('/wish', checkLoginHandler, require('./routes/wish'))
 app.use('/report', checkLoginHandler, require('./routes/report'))

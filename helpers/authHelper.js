@@ -5,7 +5,7 @@ function checkLoginHandler(req, res, next) {
     next()
   }else{
     req.session.loggedIn=true
-    req.session.userId = 1
+    req.session.userId = 2
     next()
     // res.flash('Please Login before continue')
     // res.redirect('/auth/login')

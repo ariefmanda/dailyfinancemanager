@@ -10,6 +10,8 @@
       <th>Date</th>
       <th>Budget</th>
       <th>Expense</th>
+      <th>Budget Per Categories</th>
+      <th>Expenses Per Categories</th>
       <th>Action</th>
     </thead>
     <tbody>
@@ -18,9 +20,25 @@
             <td><%= budget.nameMonth(budget.month)+' '+budget.year %></td>
             <td>Rp <%= budget.amount%></td>
             <td><%= budget.expense %></td>
+            <td><ol>
+              <% for(let category of budget.Categories) {%>
+                <li><%= category.name %>:<%= category.BudgetCategory.amount %></li>
+              <% } %>
+            </ol></td>
+            <td><ol>
+                <% for(let category of budget.Categories) {%>
+                  <% let total = 0 %>
+                  <% for(let transaction of category.Transactions) {%>
+                      ini:::: <%= transaction.name %> <%= transaction.price %> :::: 
+                      <% total = total + transaction.price %>
+                  <% } %>
+                  <li><%= category.name %> : <%= total %></li>
+                <% } %>
+              </ol></td>
             <td>
-              <a class "ui button mini" href="/budget/<%= budget.id %>/edit">Edit</a>
-              <a href="/budget/<%= budget.id%>/delete">Delete</a>
+              <a class "ui button mini" href="/budget/<%= budget.id %>/edit">Edit</a> |<br>
+              <a href="/budget/<%= budget.id%>/delete">Delete</a> | <br>
+              <a href="/budget/<%= budget.id%>/assignCatBudget">Assign Cat Budget</a>
             </td>
           </tr>  
         <% } %>

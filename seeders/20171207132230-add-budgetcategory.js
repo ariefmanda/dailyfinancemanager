@@ -12,31 +12,44 @@ module.exports = {
         isBetaMember: false
       }], {});
     */
-    return queryInterface.bulkInsert('Budgets', [{
-      month: 12, // < si jono
-      year: 2017,
-      amount: 1000000,
-      userId: 1,
-      expense: 0,
+    return queryInterface.bulkInsert('BudgetCategories', [{
+      budgetId: 1, //   <----- user x pada bulan x
+      categoryId: 1,
+      amount : 100000,
       createdAt: new Date(),
       updatedAt: new Date()
     },{
-      month: 1, // ID 2
-      year: 2018,
-      amount: 2000000,
-      userId:1,
-      expense: 0,
+      budgetId: 1,
+      categoryId: 2,
+      amount : 300000,
       createdAt: new Date(),
       updatedAt: new Date()
     },{
-      month: 12,
-      year: 2017,
-      amount: 3000000,
-      userId:2,
-      expense: 0,
+      budgetId: 1,
+      categoryId: 3,
+      amount : 600000,
       createdAt: new Date(),
       updatedAt: new Date()
-    }], {});
+    },{
+      budgetId: 2, 
+      categoryId: 1,
+      amount : 1000000,
+      createdAt: new Date(),
+      updatedAt: new Date()
+    },{
+      budgetId: 2,
+      categoryId: 2,
+      amount : 1000000,
+      createdAt: new Date(),
+      updatedAt: new Date()
+    },{
+      budgetId: 3,
+      categoryId: 5,
+      amount : 1500000,
+      createdAt: new Date(),
+      updatedAt: new Date()
+    }]);
+    
   },
 
   down: (queryInterface, Sequelize) => {
@@ -47,6 +60,5 @@ module.exports = {
       Example:
       return queryInterface.bulkDelete('Person', null, {});
     */
-    return queryInterface.bulkDelete('Budgets', null, {});
   }
 };

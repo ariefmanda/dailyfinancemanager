@@ -25,18 +25,14 @@ module.exports = {
       createdAt: new Date(),
       updatedAt: new Date()
     },{
-      name: 'Parkir',
+      name: 'Piknik',
       createdAt: new Date(),
       updatedAt: new Date()
     },{
-      name: 'Poison',
+      name: 'Hedon',
       createdAt: new Date(),
       updatedAt: new Date()
-    },{
-      name: 'Uncategorized',
-      createdAt: new Date(),
-      updatedAt: new Date()
-    },], {});
+    }]);
   },
 
   down: (queryInterface, Sequelize) => {
