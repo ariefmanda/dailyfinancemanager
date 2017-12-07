@@ -12,6 +12,7 @@ module.exports = (sequelize, DataTypes) => {
               where: {
                 month: value,
                 year: this.year,
+                userId:this.userId,
                 id: { [sequelize.Op.ne]: this.id }
               }
             })

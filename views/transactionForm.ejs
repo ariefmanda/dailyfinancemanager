@@ -7,9 +7,16 @@
   <%- include('./partials/header'); %>
   <form action="" method="post" class="ui form">
     <label>Category Name:</label>
-    <select name="categoryId" class="ui dropdown">
-    <% for(let [index,category] of categories.entries()) {%>
+    <select name="categoryId" class="ui dropdown" >
+    <% for(let [index,category] of budget.Categories.entries()) {%>
+        <%if( category.id == transaction.categoryId){%>
         <option value= "<%= category.id %>" ><%=category.name%></option> 
+        <%}%>
+    <%} %>
+    <% for(let [index,category] of budget.Categories.entries()) {%>
+      <%if( category.id !== transaction.categoryId){%>
+      <option value= "<%= category.id %>" ><%=category.name%></option> 
+      <%}%>
     <%} %>
     </select>
     <label>Transaction Name:</label>
