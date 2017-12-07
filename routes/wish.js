@@ -17,7 +17,7 @@ router.get('/', function(req, res, next) {
     .catch(next)
 })
 
-router.get('/add', function(req, res) {
+router.get('/add', function(req, res,next) {
   res.render('wishForm', {
     wish: {
       name: req.query.name
@@ -26,9 +26,10 @@ router.get('/add', function(req, res) {
   })
 })
 
-router.post('/add', function(req, res) {
+router.post('/add', function(req, res, next) {
   if (req.body.yesno == 'Yes') {
     let wish = {
+      userId : req.session.userId,
       name: req.body.name,
       fullfilled: false
     }
@@ -42,7 +43,7 @@ router.post('/add', function(req, res) {
   }
 })
 
-router.get('/:id/edit', function(req, res) {
+router.get('/:id/edit', function(req, res, next) {
   models.Wish.findById(req.params.id)
     .then(wish => {
       res.render('wishForm', {
@@ -53,7 +54,7 @@ router.get('/:id/edit', function(req, res) {
     .catch(next)
 })
 
-router.post('/:id/edit', function(req, res) {
+router.post('/:id/edit', function(req, res, next) {
   let currentWish = {
     name: req.body.name,
     fullfilled: false
@@ -69,14 +70,14 @@ router.post('/:id/edit', function(req, res) {
     .catch(next)
 })
 
-router.get('/:id/delete', function(req, res) {
+router.get('/:id/delete', function(req, res, next) {
   models.Wish.destroy({
     where: {
       id: req.params.id
     }
   })
     .then(() => {
-      req.redirect('/wish')
+      res.redirect('/wish')
     })
     .catch(next)
 })

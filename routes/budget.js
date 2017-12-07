@@ -8,19 +8,26 @@ router.get('/', function(req, res, next) {
       Promise.all([
         user,
         user.getBudgets({
+          order : [
+            ['year', 'ASC'],
+            ['month', 'ASC'],
+            
+          ],
           include: [
             {
               model: models.Category,
-              include : [{
-                model : models.Transaction,  
-              }]
+              include: [
+                {
+                  model: models.Transaction,
+                }
+              ]
             }
           ]
         })
       ])
     )
     .then(([user, budgets]) => {
-      console.log(budgets[0].Categories[0].Transactions)
+      // console.log(budgets[0].Categories[0].Transactions)
       res.render('budgetList', {
         pageTitle: 'Budgets List',
         user: user,
@@ -71,11 +78,16 @@ router.get('/:id/assignCatBudget', (req, res, next) => {
     models.Budget.findById(req.params.id, {
       include: [
         {
-          model: models.Category
+          model: models.Category,
+          
         }
       ]
     }),
-    models.Category.findAll()
+    models.Category.findAll({
+      where : {
+        userId : req.session.userId
+      }
+    })
   ])
     .then(([budget, categories]) => {
       res.render('budgetAssignCastForm', {

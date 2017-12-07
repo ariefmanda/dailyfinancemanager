@@ -14,42 +14,42 @@ module.exports = {
     */
     return queryInterface.bulkInsert('Transactions', [{
       name        : "Makan Siang",
-      price       : 0,
+      price       : 12000,
       userId      : 1,
       categoryId  : 2,
       createdAt: new Date(),
       updatedAt: new Date()
     },{
       name        : "Makan malam",
-      price       : 0,
+      price       : 30000,
       userId      : 1,
       categoryId  : 2,
       createdAt: new Date(),
       updatedAt: new Date()
     },{
       name        : "Parkir",
-      price       : 0,
+      price       : 10000,
       userId      : 1,
       categoryId  : 4,
       createdAt: new Date(),
       updatedAt: new Date()
     },{
       name        : "Beli Bensin",
-      price       : 0,
+      price       : 20000,
       userId      : 2,
       categoryId  : 7,
       createdAt: new Date(),
       updatedAt: new Date()
     },{
       name        : "Minum Kopi",
-      price       : 0,
+      price       : 1500,
       userId      : 2,
       categoryId  : 8,
       createdAt: new Date(),
       updatedAt: new Date()
     },{
       name        : "Parkir PIM",
-      price       : 0,
+      price       : 3000,
       userId      : 2,
       categoryId  : 6,
       createdAt: new Date(),

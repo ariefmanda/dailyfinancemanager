@@ -24,6 +24,7 @@ module.exports = (sequelize, DataTypes) => {
     User.hasMany(models.Transaction,{foreignKey:'userId', sourceKey: 'id'})
     User.hasMany(models.Wish,{foreignKey:'userId', sourceKey: 'id'})
     User.hasMany(models.Budget,{foreignKey:'userId', sourceKey: 'id'})
+    User.hasMany(models.Category, {foreignKey: 'userId'})
   }
   return User
 }

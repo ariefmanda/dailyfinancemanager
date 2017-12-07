@@ -5,44 +5,49 @@
 </head>
 <body>
   <%- include('./partials/header'); %>
-  <table class="ui celled compact table">
-    <thead>
-      <th>Date</th>
-      <th>Budget</th>
-      <th>Expense</th>
-      <th>Budget Per Categories</th>
-      <th>Expenses Per Categories</th>
-      <th>Action</th>
-    </thead>
-    <tbody>
-        <% for(let budget of budgets) {%>
-          <tr>
-            <td><%= budget.nameMonth(budget.month)+' '+budget.year %></td>
-            <td>Rp <%= budget.amount%></td>
-            <td><%= budget.expense %></td>
-            <td><ol>
-              <% for(let category of budget.Categories) {%>
-                <li><%= category.name %>:<%= category.BudgetCategory.amount %></li>
-              <% } %>
-            </ol></td>
-            <td><ol>
-                <% for(let category of budget.Categories) {%>
-                  <% let total = 0 %>
-                  <% for(let transaction of category.Transactions) {%>
-                      <% total = total + transaction.price %>
-                  <% } %>
-                  <li><%= category.name %> : <%= total %></li>
-                <% } %>
-              </ol></td>
-            <td>
-              <a class "ui button mini" href="/budget/<%= budget.id %>/edit">Edit</a> |<br>
-              <a href="/budget/<%= budget.id%>/delete">Delete</a> | <br>
-              <a href="/budget/<%= budget.id%>/assignCatBudget">Assign Cat Budget</a>
-            </td>
-          </tr>  
-        <% } %>
-    </tbody>
-  </table>
+  
   <h3><a class="ui primary button" href="/budget/add">Add budget</a></h3>
+  <% for(let budget of budgets ) { %>
+    
+    <h4><%= budget.nameMonth(budget.month)+' '+budget.year %> - Total Budget : <%= budget.amount%></h4>
+    <% let totalAssigned = 0 %>
+    <table class="ui blue celled compact table">
+      <thead>
+        <tr>
+          <th width="50%">Transaction Category</th>
+          <th>Allocated Budget</th>
+        </tr>
+      </thead>
+      <tbody>
+          <% if(budget.Categories.length == 0){ %>
+            <tr><td><p>No category added</p></td></tr>
+          <% } %>  
+        <% for(let category of budget.Categories) {%>
+          <tr>
+          <% totalAssigned += Number(category.BudgetCategory.amount)  %>
+          <td><%= category.name %></td>
+          <td><%= category.BudgetCategory.amount %></td>
+        </tr>
+        <% } %>
+      </tbody>
+      <tfoot >
+        <tr>
+          <th><strong>Total allocated budget</strong></th>
+          <th><strong><%= totalAssigned %></strong></th>
+        </tr>
+        <tr>
+          <th >
+              <a class="ui button mini" href="/budget/<%= budget.id %>/edit">Edit</a>
+              <a class="ui button mini" href="/budget/<%= budget.id%>/delete">Delete</a>
+              <a class="ui button mini positive" href="/budget/<%= budget.id%>/assignCatBudget">Assign Budget Category</a>
+            
+          </th>
+          <th></th>
+        </tr>
+      </tfoot>
+    </table><br>
+  <% } %>
+  <br><br><br>
+  
 </body>
 </html>

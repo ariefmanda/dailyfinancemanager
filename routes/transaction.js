@@ -7,7 +7,9 @@ router.get('/', (req, res, next) => {
   models.User.findById(req.session.userId)
     .then(user => {
       user
-        .getTransactions({ include: [models.Category] })
+        .getTransactions({order:[
+          ['createdAt', 'ASC']
+        ], include: [models.Category] })
         .then(transactions => {
           res.render('transactionList', {
             user: user,
@@ -104,22 +106,14 @@ router.get('/:id/edit', function(req, res, next) {
       user
         .getWishes()
         .then(wishes => {
-          user
-            .getTransactions({
-              where: {
-                id: req.params.id
-              }
-            })
+          models.Transaction.findById(req.params.id)
             .then(transaction => {
-              models.Category.findAll({
-                where:{
-                  userId:req.session.userId
-                }
-              })
+              user.getCategories()
                 .then(categories => {
                   res.render('transactionForm', {
+                    user: user,
                     wishes: wishes,
-                    transaction: transaction[0],
+                    transaction: transaction,
                     categories: categories,
                     pageTitle: 'Transaction Edit'
                   })

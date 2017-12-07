@@ -5,16 +5,19 @@
 </head>
 <body>
   <%- include('./partials/header'); %>
-  <h4>Total: <%= total %></h4>
+  <p>Total budget used in categories: <%= total %></p>
+  <p>Your Budget: <%= budget.amount %></p>
+  <p>Remaining unassigned Budget: <%= budget.amount - total %></p>
+  <hr>
   <form action="" method="post" class="ui form">
-    <label>Category Name:</label>
+    <label>Choose Unassigned Transaction category:</label>
     <select name="categoryId" class="ui dropdown">
     <% for(let category of categories) {%>
         <option value= "<%= category.id %>" ><%=category.name%></option> 
     <%} %>
     </select>
     <label>Amount :</label>
-    <input type="text" name="amount" value="<%= budgetCategory.amount || '' %>" placeholder="Amount">
+    <input type="text" name="amount" value="<%= budgetCategory.amount || '' %>" placeholder="Amount max <%= budget.amount - total %>">
     <input class="ui primary button" type="submit" value="Save">
   </form>
 </body>

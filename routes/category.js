@@ -75,7 +75,7 @@ router.get('/:id/edit', function(req, res, next) {
       }
     })
       .then(() => {
-        req.redirect('/category');
+        res.redirect('/category');
       })
       .catch(next);
   });
