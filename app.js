@@ -6,7 +6,7 @@ const checkLoginHandler = require('./helpers/authHelper').checkLoginHandler
 const flashMessageHandler = require('./helpers/messageHelper').flashMessageHandler
 const errorHandler = require('./helpers/errorHelper').errorHandler
 const app = express()
-
+let port = process.env.PORT || 3000
 app.set('view engine', 'ejs')
 app.use(cookieParser())
 app.use(
@@ -36,7 +36,7 @@ app.use(function(req, res, next) {
 });
 app.use(errorHandler)
 
-app.listen(3000, function(req, res) {
+app.listen(port, function(req, res) {
   console.log('aplikasi ini lewat port 3000')
 })
 
