@@ -61,6 +61,10 @@ router.get('/add', function(req, res, next) {
 router.post('/add', function(req, res, next) {
   let convertDate = MonthHelper.ConvertDate(new Date())
   let priceNum = Number(req.body.price)
+  if(isNaN(req.body.price)){
+    res.flash('Mohon isi price dengan angka')
+    res.redirect('/transaction/add')
+  }
   models.User.findById(req.session.userId)
     .then(user =>
       Promise.all([
@@ -156,6 +160,10 @@ router.get('/:id/edit', function(req, res, next) {
 
 router.post('/:id/edit', function(req, res, next) {
   let convertDate = MonthHelper.ConvertDate(new Date())
+  if(isNaN(req.body.price)){
+    res.flash('Mohon isi price dengan angka')
+    res.redirect(`/transaction/${req.params.id}/edit`)
+  }
   models.User.findById(req.session.userId)
     .then(user =>
       Promise.all([
