@@ -22,21 +22,32 @@ router.get('/', (req, res, next) => {
     .catch(next)
 })
 router.get('/add', function(req, res, next) {
+  let convertDate = MonthHelper.ConvertDate(new Date())
   models.User.findById(req.session.userId)
     .then(user => {
       user
-        .getWishes()
+        .getWishes({
+          where:{
+            fullfilled:false
+          }
+        })
         .then(wishes => {
-          models.Category.findAll({
-            where:{
-              userId:req.session.userId
-            }
-          })
-            .then(categories => {
+        user
+        .getBudgets({
+          where: {
+            userId: user.id,
+            month: convertDate[1],
+            year: convertDate[2]
+          },
+          include:[{
+            model:models.Category
+          }]
+        })
+        .then(budget => {
               res.render('transactionForm', {
                 wishes: wishes,
                 transaction: false,
-                categories: categories,
+                budget: budget[0],
                 pageTitle: 'Transaction Add'
               })
             })
@@ -66,7 +77,7 @@ router.post('/add', function(req, res, next) {
     .then(([user, budget]) => {
       if (Number(budget.expense) + priceNum > budget.amount) {
         res.flash('budget gak cukup')
-        res.redirect(`/wish/add?${req.body.name}`)
+        res.redirect(`/wish/add?name=${req.body.name}`)
       } else {
         budget.expense = Number(budget.expense) + priceNum
         return Promise.all([user, budget.save()])
@@ -101,20 +112,34 @@ router.post('/add', function(req, res, next) {
 })
 
 router.get('/:id/edit', function(req, res, next) {
+  let convertDate = MonthHelper.ConvertDate(new Date())
   models.User.findById(req.session.userId)
     .then(user => {
       user
-        .getWishes()
+        .getWishes({
+          where:{
+            fullfilled:false
+          }
+        })
         .then(wishes => {
           models.Transaction.findById(req.params.id)
             .then(transaction => {
-              user.getCategories()
-                .then(categories => {
+              user.getBudgets({
+                where: {
+                  userId: user.id,
+                  month: convertDate[1],
+                  year: convertDate[2]
+                },
+                include:[{
+                  model:models.Category
+                }]
+              })
+                .then(budget => {
                   res.render('transactionForm', {
                     user: user,
                     wishes: wishes,
                     transaction: transaction,
-                    categories: categories,
+                    budget: budget[0],
                     pageTitle: 'Transaction Edit'
                   })
                 })
@@ -161,6 +186,16 @@ router.post('/:id/edit', function(req, res, next) {
       }
     })
     .then(([user, budget,transaction])=>{
+      if(Number(req.body.wishId)!==0){
+        models.Wish.update({
+          fullfilled:true
+        },{
+          where:{
+            id:req.body.wishId,
+            userId:user.id
+          }
+        })
+      }
       return Promise.all([models.Transaction.update({
         name:req.body.name,
         categoryId:req.body.categoryId,

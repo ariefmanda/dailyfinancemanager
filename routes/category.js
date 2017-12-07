@@ -20,17 +20,17 @@ router.get('/', (req, res, next) => {
 
 router.get('/add', (req, res, next) => {
   res.render('categoryForm', {
+    category:false,
     pageTitle: 'Category Add'
   });
 });
 
 router.post('/add', (req, res, next) => {
   let newCategory = {
-    name: req.body.name
+    name: req.body.name,
+    userId: req.session.userId
   };
-  models.Category.create(newCategory,{where:{
-    userId:req.session.userId,
-  }})
+  models.Category.create(newCategory)
     .then(() => {
       res.redirect('/category');
     })

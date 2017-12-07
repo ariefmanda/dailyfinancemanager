@@ -9,14 +9,24 @@
       <label>Year:</label>
       <select name="year" class="ui dropdown">
       <% for(let i=2017; i <2020; i++) {%>
-      <option value= "<%= i %>" ><%=i%></option>  
-      <% } %>
+          <%if(budget.year===i){%>
+            <option value= "<%= i %>" ><%=i%></option>   
+      <% } }%>
+      <% for(let i=2017; i <2020; i++) {%>
+          <%if(budget.year!=i){%>
+            <option value= "<%= i %>" ><%=i%></option>   
+      <% } }%>
       </select>
       <label>Month:</label>
       <select name="month" class="ui dropdown">
       <% for(let [index,month] of ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'].entries()) { %>
-      <option value="<%= index+1 %>" > <%= month %> </option>
-      <%}%>
+        <%if(budget.month===index+1){%>
+          <option value= "<%= budget.month %>" ><%=month%></option>   
+    <% } }%>
+      <% for(let [index,month] of ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'].entries()) { %>
+        <%if(budget.month!==index+1){%>
+          <option value= "<%= index+1 %>" ><%=month%></option>   
+    <% } }%>
       </select>
       <label>Amount(Rp):</label>
       <input type="number" name="amount" value="<%= (budget)?budget.amount:''%>" placeholder="Amount">
