@@ -9,6 +9,7 @@
     <thead>
       <th>Date</th>
       <th>Budget</th>
+      <th>Expense</th>
       <th>Action</th>
     </thead>
     <tbody>
@@ -16,6 +17,7 @@
           <tr>
             <td><%= budget.nameMonth(budget.month)+' '+budget.year %></td>
             <td>Rp <%= budget.amount%></td>
+            <td><%= budget.expense %></td>
             <td>
               <a class "ui button mini" href="/budget/<%= budget.id %>/edit">Edit</a>
               <a href="/budget/<%= budget.id%>/delete">Delete</a>
