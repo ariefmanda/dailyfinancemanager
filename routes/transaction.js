@@ -23,39 +23,57 @@ router.get('/', (req, res, next) => {
 })
 router.get('/add', function(req, res, next) {
   let convertDate = MonthHelper.ConvertDate(new Date())
-  models.User.findById(req.session.userId)
-    .then(user => {
-      user
-        .getWishes({
-          where:{
-            fullfilled:false
-          }
-        })
-        .then(wishes => {
-        models.Budget
-        .findOne({
-          where: {
-            userId: user.id,
-            month: convertDate[1],
-            year: convertDate[2]
-          },
-          include:[{
-            model:models.Category
-          }]
-        })
-        .then(budget => {
-              res.render('transactionForm', {
-                wishes: wishes,
-                transaction: false,
-                budget: budget,
-                pageTitle: 'Transaction Add'
-              })
+  models.Budget
+  .findOne({
+    where: {
+      userId: req.session.userId,
+      month: convertDate[1],
+      year: convertDate[2]
+    },
+    include:[{
+      model:models.Category
+    }]
+  }).then(budgetx=>{
+    // console.log('------>',budgetx.Categories.length)
+    if(budgetx == null || budgetx.Categories.length<1){
+      res.flash('Please manage your budget this month and add category to your budget')
+      res.redirect('/budget')
+    }else{
+      models.User.findById(req.session.userId)
+        .then(user => {
+          user
+            .getWishes({
+              where:{
+                fullfilled:false
+              }
+            })
+            .then(wishes => {
+            models.Budget
+            .findOne({
+              where: {
+                userId: user.id,
+                month: convertDate[1],
+                year: convertDate[2]
+              },
+              include:[{
+                model:models.Category
+              }]
+            })
+            .then(budget => {
+                  res.render('transactionForm', {
+                    wishes: wishes,
+                    transaction: false,
+                    budget: budget,
+                    pageTitle: 'Transaction Add'
+                  })
+                })
+                .catch(next)
             })
             .catch(next)
         })
         .catch(next)
-    })
-    .catch(next)
+    }
+  })
 })
 
 router.post('/add', function(req, res, next) {
