@@ -32,8 +32,8 @@ router.get('/add', function(req, res, next) {
           }
         })
         .then(wishes => {
-        user
-        .getBudgets({
+        models.Budget
+        .findOne({
           where: {
             userId: user.id,
             month: convertDate[1],
@@ -47,7 +47,7 @@ router.get('/add', function(req, res, next) {
               res.render('transactionForm', {
                 wishes: wishes,
                 transaction: false,
-                budget: budget[0],
+                budget: budget,
                 pageTitle: 'Transaction Add'
               })
             })

@@ -49,8 +49,9 @@ router.post('/signup', (req, res, next) => {
     email: req.body.email
   }
   models.User.create(newUser).then(user => {
-    res.send('oke')
-  })
+    res.flash('Account created. Plase Login')
+    res.redirect('/')
+  }).catch(next)
 })
 
 router.get('/logout', (req,res,next) =>{
