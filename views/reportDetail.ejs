@@ -1,44 +1,96 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <%- include('./partials/metaHead'); %>
 </head>
+
 <body>
   <%- include('./partials/header'); %>
-  <table class="ui celled compact table">
-    <thead>
-      <th>Date</th>
-      <th>Category</th>
-      <th>Transaction Name</th>
-      <th>Budget</th>
-      <th>Expense</th>
-      <th>Balance</th>
-    </thead>
-    <tbody>
+    <table class="ui celled compact table">
+      <thead>
+        <th>Date</th>
+        <th>Category</th>
+        <th>Transaction Name</th>
+        <th>Budget</th>
+        <th>Expense</th>
+        <th>Balance</th>
+      </thead>
+      <tbody>
         <% let pengeluaran=0 %>
-        <% for(let transaction of transactions) {%>
-          <tr>
-            <td><%= transaction.date[0]%></td>
-            <td><%= transaction.category%></td>
-            <td><%= transaction.name%></td>
-            <td>Rp <%= budget.amount%></td>
-            <td>Rp <%= transaction.price %></td>
-            <% pengeluaran+= transaction.price%>
-            <td>Rp <%= budget.amount-=transaction.price%></td>
-          </tr>  
-        <% } %>
-    </tbody>
-    <tfoot>
+          <% for(let transaction of transactions) {%>
+            <tr>
+              <td>
+                <%= transaction.date[0]%>
+              </td>
+              <td>
+                <%= transaction.category%>
+              </td>
+              <td>
+                <%= transaction.name%>
+              </td>
+              <td>Rp
+                <%= budget.amount%>
+              </td>
+              <td>Rp
+                <%= transaction.price %>
+              </td>
+              <% pengeluaran+= transaction.price%>
+                <td>Rp
+                  <%= budget.amount-=transaction.price%>
+                </td>
+            </tr>
+            <% } %>
+      </tbody>
+      <tfoot>
         <th colspan="4">
-            Total
+          Total
         </th>
         <th>
-          Rp <%= pengeluaran %>
+          Rp
+          <%= pengeluaran %>
         </th>
         <th>
-          Rp <%= budget.amount %>
-      </th>
-    </tfoot>
-  </table>
+          Rp
+          <%= budget.amount %>
+        </th>
+      </tfoot>
+    </table>
+    <h4>Detail Catagories</h4>
+    <table class="ui celled compact table">
+      <thead>
+        <th>
+          Name Category
+        </th>
+        <th>
+          Budget planing
+        </th>
+        <th>
+          Expense
+        </th>
+        <th>
+          Balance
+        </th>
+      </thead>
+      <tbody>
+        <% for(let categoryy of tableCategorys) {%>
+          <tr>
+            <td>
+              <%= categoryy.name %>
+            </td>
+            <td>
+              <%= categoryy.amount %>
+            </td>
+            <td>
+              <%= categoryy.price %>
+            </td>
+            <td>
+                <%= categoryy.amount-categoryy.price %>
+            </td>
+          </tr>
+          <%} %>
+      </tbody>
+    </table>
 </body>
+
 </html>
