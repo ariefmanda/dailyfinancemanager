@@ -8,12 +8,12 @@
   <form action="" method="post" class="ui form">
     <label>Category Name:</label>
     <select name="categoryId" class="ui dropdown" >
-    <% for(let [index,category] of budget.Categories) {%>
+    <% for(let category of budget.Categories) {%>
         <%if( category.id == transaction.categoryId){%>
         <option value= "<%= category.id %>" ><%=category.name%></option> 
         <%}%>
     <%} %>
-    <% for(let [index,category] of budget.Categories) {%>
+    <% for(let category of budget.Categories) {%>
       <%if( category.id !== transaction.categoryId){%>
       <option value= "<%= category.id %>" ><%=category.name%></option> 
       <%}%>
