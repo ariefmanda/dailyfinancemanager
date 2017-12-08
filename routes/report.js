@@ -79,11 +79,16 @@ router.get('/budget/:id/detail', (req, res, next) => {
           console.log(budget.id)
           let obj = {}
           let array = []
+          let arrayCategorys=[]
           if (budget.Categories) {
             console.log(array)
             budget.Categories.map(category => {
               if (category.Transactions) {
-                category.Transactions.map(transaction => {
+                let objCategory={}
+                objCategory.price=0
+                objCategory.amount=0
+                objCategory.name=category.name
+                category.Transactions.map((transaction,index) => {
                   if (transaction) {
                     obj = {}
                     obj.budget = category.BudgetCategory.amount
@@ -91,6 +96,11 @@ router.get('/budget/:id/detail', (req, res, next) => {
                     obj.date = MonthHelper.ConvertDate(transaction.createdAt)
                     obj.category = category.name
                     obj.price = Number(transaction.price)
+                    objCategory.price+= Number(transaction.price)
+                    objCategory.amount+= Number(category.BudgetCategory.amount)
+                    if(index>=category.Transactions.length-1){
+                      arrayCategorys.push(objCategory)
+                    }
                     array.push(obj)
                   }
                 })
@@ -102,9 +112,11 @@ router.get('/budget/:id/detail', (req, res, next) => {
           array.sort(function(a, b) {
             return a.date[0] - b.date[0]
           })
+
           res.render('reportDetail', {
             budget: budget,
             transactions: array,
+            tableCategorys:arrayCategorys,
             pageTitle: `Detail Report Bulan ${budget.month} Tahun ${
               budget.year
             }`
